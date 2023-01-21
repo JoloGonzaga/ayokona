@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Drowsy Driving App</string>
+    <string-array name="model_array">
+        <item>192</item>
+        <item>320</item>
+        <item>640</item>
+    </string-array>
+</resources>

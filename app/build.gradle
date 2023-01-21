@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+}
+android {
+    compileSdkVersion 33
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.vyw.tflite"
+        minSdkVersion 24
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+
+        externalNativeBuild {
+            // set c++ flags, specify the STL: c++_shared, gnustl...
+            cmake {
+                cFlags   "-O3"
+                cppFlags "-std=c++11 -frtti -fexceptions"
+                arguments "-DANDROID_PLATFORM=android-24",  // remember: same min sdk as before
+                        "-DANDROID_TOOLCHAIN=clang",
+                        "-DANDROID_STL=c++_shared",
+                        "-DANDROID_CPP_FEATURES=rtti exceptions"
+            }
+        }
+    }
+
+    buildFeatures{
+        dataBinding true
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = [
+                    "src/main/cpp/cppLibs/dlib/lib",   // remove if you only need opencv
+                    "src/main/cpp/cppLibs/opencv"  // remove if you only need dlib
+            ]
+        }
+    }
+
+    //aaptOptions {
+        //noCompress "tflite" // dont compress files with this extension
+    //}
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.22.1'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    packagingOptions {
+        pickFirst "**/*.so"
+        pickFirst "**/*.a"
+    }
+    ndkVersion '25.1.8937393'
+    buildFeatures{
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+}
