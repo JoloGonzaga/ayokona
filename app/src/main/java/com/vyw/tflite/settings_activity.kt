@@ -12,12 +12,9 @@ class settings_activity : AppCompatActivity() {
 
     }
 
-    fun exit2_btnclick(view: View) {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
 
     }
 
 
 
-}
+

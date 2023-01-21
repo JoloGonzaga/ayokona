@@ -7,7 +7,7 @@
     android:background="@drawable/cut_card_background"
     tools:context=".settings_activity">
 
-
+    <include layout="@layout/toolbar" />
     <androidx.cardview.widget.CardView
         android:layout_width="159dp"
         android:layout_height="202dp"
@@ -86,27 +86,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
+
+            <androidx.constraintlayout.widget.Placeholder
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_exit" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Menu"
-                android:textSize="20sp" />
+                android:layout_height="wrap_content">
 
 
+            </androidx.constraintlayout.widget.Placeholder>
         </LinearLayout>
-
-
-        <androidx.constraintlayout.widget.Placeholder
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-
-        </androidx.constraintlayout.widget.Placeholder>
 
 
     </androidx.cardview.widget.CardView>
